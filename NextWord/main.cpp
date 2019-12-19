@@ -1,15 +1,25 @@
-//
-//  main.cpp
-//  NextWord
-//
-//  Created by Kunal Patadia on 12/19/19.
-//  Copyright © 2019 Kunal Patadia. All rights reserved.
-//
-
 #include <iostream>
+#include <map>
+#include <string>
+#include <fstream>
+#include <vector>
+#include "NextWord.hpp"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+using std::string;
+using std::ifstream;
+using std::vector;
+using std::map;
+using std::pair;
+
+
+int main() {
+        
+    Guessing startGame;
+
+    startGame.startMessage();
+    
+    startGame.start();
+            
+    
     return 0;
 }
