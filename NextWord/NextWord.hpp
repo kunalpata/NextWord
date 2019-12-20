@@ -8,6 +8,8 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <stdlib.h>
+#include <time.h>
 
 using std::string;
 using std::ifstream;
@@ -18,7 +20,8 @@ using std::pair;
 class Guessing {
   
 private:
-    int score;
+    int score,
+    size;
     string name;
     vector<string> words;
     vector<string> guessWords;
@@ -31,7 +34,9 @@ private:
     *p2;
     
     void _createList();
-
+    void _userNames();
+    void _generateWord(Guessing* &player);
+    void _increaseScore(Guessing* &player);
     
 public:
     Guessing();

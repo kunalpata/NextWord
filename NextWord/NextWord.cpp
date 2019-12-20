@@ -1,6 +1,10 @@
 #include "NextWord.hpp"
 
-Guessing::Guessing() {}
+Guessing::Guessing() {
+    
+    srand(static_cast<unsigned int>(time(0)));
+
+}
 
 void Guessing::startMessage() {
 std::cout << "Welcome to the guessing word game! A word will be given to you\n"
@@ -28,9 +32,7 @@ void Guessing::_createList() {
         
         string temp1,
         temp2;
-        
-        int size;
-        
+                
         inputData >> size;
         
         for (int i = 0; i < size; i++) {
@@ -82,16 +84,10 @@ void Guessing::validateInt(int &input) {
     }
 }
 
-void Guessing::start() {
-    
-    _createList();
+void Guessing::_userNames() {
     
     p1 = new Guessing();
     p2 = new Guessing();
-    
-    int rounds,
-    count;
-    
     std::cout << "Player 1 please enter your name: ";
     std::getline(std::cin, name);
     p1->setName(name);
@@ -103,16 +99,45 @@ void Guessing::start() {
     std::cout << p1->name << std::endl;
     std::cout << p2->name << std::endl;
 
-    std::cout << "\nEnter number of rounds (Max 10): ";
-    std::cin >> rounds;
-    validateInt(rounds);
+}
+
+void Guessing::_increaseScore(Guessing* &player) {
+    player->setScore(player->getScore() + 1);
+}
+
+void Guessing::_generateWord(Guessing* &player) {
     
-    auto word = list["Water"];
-    if(list[words[0]].find(guessWords[0]) == false) {
-        std::cout << word << std::endl;
+    int pos = rand() % (size - 1) + 1;
+    
+    std::cout << pos << std::endl;
+    
+    auto answer = list[words[pos]];
+    if(list[words[pos]].find(guessWords[pos]) == false) {
+        std::cout << "Key: " << words[pos] << std::endl;
+        std::cout << "Value: " << guessWords[pos] << std::endl;
+        std::cout << answer << std::endl;
     }
     
+    _increaseScore(player);
     
+}
+
+void Guessing::start() {
+    
+    _createList();
+    
+    _userNames();
+
+//    int rounds,
+//    count;
+//
+//    std::cout << "\nEnter number of rounds (Max 10): ";
+//    std::cin >> rounds;
+//    validateInt(rounds);
+    
+
+    _generateWord(p1);
+
     
         
 }
