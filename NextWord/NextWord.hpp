@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <map>
+#include <set>
 #include <string>
 #include <fstream>
 #include <vector>
@@ -16,16 +17,21 @@ using std::ifstream;
 using std::vector;
 using std::map;
 using std::pair;
+using std::set;
+
 
 class Guessing {
   
 private:
-    int score,
-    size;
+    int score = 0,
+    size = 0,
+    tempPos = 0;
     string name;
     vector<string> words;
     vector<string> guessWords;
-    map<string, string> list;
+    map<string,set<string>> list;
+    set<string> usedWords;
+
     /* need to declare as pointers since class declaration isn't
      complete yet, class declaration complete after ;
      pointer to class let's compiler know Guessing is the class so
@@ -35,8 +41,10 @@ private:
     
     void _createList();
     void _userNames();
-    void _generateWord(Guessing* &player);
+    string _generateWord();
     void _increaseScore(Guessing* &player);
+    bool _wordChecker(Guessing* &player, string keyWord, string guessWord);
+    void playerTurn(Guessing* &player1, Guessing* &player2);
     
 public:
     Guessing();

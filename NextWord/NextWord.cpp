@@ -18,6 +18,7 @@ std::cout << "Welcome to the guessing word game! A word will be given to you\n"
 
 void Guessing::_createList() {
     
+    
     ifstream inputData;
     
     inputData.open("Guessing Words.txt");
@@ -28,30 +29,35 @@ void Guessing::_createList() {
     
     else {
         
-        map<string, string>::iterator itr;
+        int numWords;
         
-        string temp1,
-        temp2;
-                
+        string temp,
+        temp2,
+        tempWord,
+        answer;
+        
+        // input number key words
         inputData >> size;
         
+        // import key words to words container
         for (int i = 0; i < size; i++) {
-            inputData >> temp1;
-            inputData >> temp2;
-            
-            words.push_back(temp1);
-            guessWords.push_back(temp2);
+            inputData >> temp;
+            words.push_back(temp);
         }
         
-    //        for (int i = 0; i < size; i++) {
-    //            std::cout << words[i] << std::endl;
-    //            std::cout << guessWords[i] << std::endl;
-    //        }
+        //TODO: Enter answers in 2d array
         
+        // import number of word elements for each key
+        inputData >> numWords;
+        
+        // import into map and assign key value pairs
         for (int i = 0; i < size; i++) {
-            list.insert(pair<string, string>(words[i], guessWords[i]));
+            tempWord = words[i];
+            for (int i = 0; i < numWords; i++) {
+                inputData >> answer;
+                list[tempWord].insert(answer);
+            }
         }
-        
     }
     
 }
@@ -96,29 +102,63 @@ void Guessing::_userNames() {
     std::getline(std::cin, name);
     p2->setName(name);
 
-    std::cout << p1->name << std::endl;
-    std::cout << p2->name << std::endl;
-
 }
 
 void Guessing::_increaseScore(Guessing* &player) {
     player->setScore(player->getScore() + 1);
 }
 
-void Guessing::_generateWord(Guessing* &player) {
+bool Guessing::_wordChecker(Guessing* &player, string keyWord, string guessWord) {
     
-    int pos = rand() % (size - 1) + 1;
+    // iterator to find the key word in map
+    map<string,set<string>>::iterator itr = list.begin();
+    itr = list.find(keyWord);
     
-    std::cout << pos << std::endl;
+    // second iterator to find its guess word within map
+    set<string> listOfWords = itr->second;
+    set<string>::iterator it = listOfWords.find(guessWord);
+
     
-    auto answer = list[words[pos]];
-    if(list[words[pos]].find(guessWords[pos]) == false) {
-        std::cout << "Key: " << words[pos] << std::endl;
-        std::cout << "Value: " << guessWords[pos] << std::endl;
-        std::cout << answer << std::endl;
+    if(itr != list.end()) {
+        if (it != listOfWords.end()) {
+            _increaseScore(player);
+            return true;
+        }
     }
     
-    _increaseScore(player);
+    return false;
+}
+
+string Guessing::_generateWord() {
+    
+    int pos = 0;
+    bool check = false;
+
+    /* only allows each word to appear once in game, uses a set
+     to store the words in to prevent duplicate appearances */
+    while (check == false) {
+        pos = rand() % size;
+                
+        // check in set to see if word exists
+        set<string>::iterator it = usedWords.begin();
+        it = usedWords.find(words[pos]);
+        
+        // if it reached end of set the word isn't in the set
+        if (it == usedWords.end()) {
+            usedWords.insert(words[pos]);
+            check = true;
+        }
+    }
+
+    return words[pos];
+        
+}
+
+void Guessing::playerTurn(Guessing* &player1, Guessing* &player2) {
+    
+    std::cout << "Name: " << player1->getName() << std::endl;
+    std::cout << "Name: " << player2->getName() << std::endl;
+    
     
 }
 
@@ -127,27 +167,44 @@ void Guessing::start() {
     _createList();
     
     _userNames();
-
-//    int rounds,
-//    count;
-//
-//    std::cout << "\nEnter number of rounds (Max 10): ";
-//    std::cin >> rounds;
-//    validateInt(rounds);
     
+    int rounds = 0,
+    count = 0;
 
-    _generateWord(p1);
-
+    //TODO: Maybe even rounds only?
+    std::cout << "\nEnter number of rounds (Max 10): ";
+    std::cin >> rounds;
+    validateInt(rounds);
+    
+    while (count < rounds) {
+        if (count % 2 == 0) {
+            playerTurn(p1, p2);
+            std::cout << std::endl;
+            count++;
+        }
+        else {
+            playerTurn(p2, p1);
+            std::cout << std::endl;
+            count++;
+        }
+    }
+    
     
         
 }
 
 
 void Guessing::testPrint() {
-    map<string, string>::iterator itr;
-
+    map<string,set<string>>::iterator itr;
+    
     for (itr = list.begin(); itr != list.end(); itr++) {
-        std::cout << itr->first << " -> " << itr->second << std::endl;
+        std::cout << itr->first << " -> ";
+        set<string> listOfWords = itr->second;
+        set<string>::iterator it;
+        for (it = listOfWords.begin(); it != listOfWords.end(); it++) {
+            std::cout << *it << " -> ";
+        }
+        std::cout << std::endl;
     }
     
 }

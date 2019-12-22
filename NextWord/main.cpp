@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <set>
 #include <string>
 #include <fstream>
 #include <vector>
@@ -10,6 +11,7 @@ using std::ifstream;
 using std::vector;
 using std::map;
 using std::pair;
+using std::set;
 
 
 int main() {
@@ -17,9 +19,10 @@ int main() {
     Guessing startGame;
 
     startGame.startMessage();
-    
+
     startGame.start();
-            
+    
+
     
     return 0;
 }
