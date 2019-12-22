@@ -44,7 +44,9 @@ private:
     string _generateWord();
     void _increaseScore(Guessing* &player);
     bool _wordChecker(Guessing* &player, string keyWord, string guessWord);
-    void playerTurn(Guessing* &player1, Guessing* &player2);
+    void _playerTurn(Guessing* &player1, Guessing* &player2);
+    bool _playerInput(Guessing* &player);
+    void _playerStats(Guessing* &player1, Guessing* &player2);
     
 public:
     Guessing();
@@ -62,7 +64,7 @@ public:
     
     // input validation
     void validateInt(int &input);
-    void validateString(string &input);
+    bool validateString(string &input);
     
     ~Guessing();
     
