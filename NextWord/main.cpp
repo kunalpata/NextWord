@@ -8,6 +8,7 @@
 
 using std::string;
 using std::ifstream;
+using std::ofstream;
 using std::vector;
 using std::map;
 using std::pair;
@@ -22,7 +23,6 @@ int main() {
 
     startGame.start();
     
-
-    
     return 0;
 }
+

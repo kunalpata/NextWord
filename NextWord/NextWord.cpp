@@ -326,5 +326,75 @@ void Guessing::testPrint() {
     
 }
 
+//void Guessing::wordImporter() {
+//
+//    map<string, set<string>> wordMap;
+//    map<string, set<string>>::iterator itr;
+//
+//    vector<string> importedWords;
+//
+//    ifstream inputData;
+//    ofstream exportData;
+//
+//    string word;
+//
+//    inputData.open("dictionary.txt");
+//
+//    if (inputData.fail()) {
+//        std::cout << "Error\n";
+//    }
+//    else {
+//
+//        while (!inputData.eof()) {
+//            inputData >> word;
+//            importedWords.push_back(word);
+//            wordMap[word];
+//        }
+//
+//    //        for (int i = 0; i < words.size(); i++) {
+//    //            std::cout << words[i] << std::endl;
+//    //        }
+//
+//        std::cout << wordMap.size() << std::endl;
+//
+//        string input,
+//        exit = "quit",
+//        value;
+//        int size = -1;
+//
+//        exportData.open("words.txt");
+//
+//        while (input != exit) {
+//            std::cout << "Enter key: ";
+//            std::cin >> input;
+//            if (input == exit) {
+//                input = exit;
+//            }
+//
+//            else {
+//
+//                exportData << input << "\t\t";
+//
+//                std::cout << "Enter 10 values\n";
+//                for (int i = 0; i < 10; i++) {
+//                    std::cout << "Enter: ";
+//                    std::cin >> value;
+//                    exportData << value << " ";
+//
+//                }
+//                exportData << std::endl;
+//
+//            }
+//
+//            size++;
+//        }
+//
+//        exportData << size;
+//
+//
+//    }
+//
+//}
+
 
 Guessing::~Guessing() {}

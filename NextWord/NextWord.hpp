@@ -61,6 +61,7 @@ public:
     
     // test to print
     void testPrint();
+    void wordImporter();
     
     // input validation
     void validateInt(int &input);
