@@ -5,4 +5,5 @@ Guessing word game.
 Start by entering both player's names to the game. Once entered, select the number of rounds you would like to play.
 During each round, a word will be given, the objective is to guess the next word that can be associated with the given word.
 For instance, if the word "Good" is given, a player can guess the following but not limited to, "luck", "job", "times". There
-are various amounts of guesses that can be made, so try to choose the best fit answer.
+are various amounts of guesses that can be made, so try to choose the best fit answer. If the player going first in that
+round guesses incorrectly, the next player can recieve double the points. The player with the most points wins.
